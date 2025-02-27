@@ -79,10 +79,11 @@ The project is divided to 3 parts:
 ### Script for data processing and model training
 
 They are python jupiter notebooks located at the parent directory.\
-`AWTxgboost.ipynb` is the notebook responsible for some data processing and\
+`Xgboost_GoogleColab.ipynb` is the notebook responsible for some data processing and\
 training XGBoost model.\
-`LSTM.ipynb` is the notebook responsible for training LSTM model.\
+`LSTM_GoogleColab.ipynb` is the notebook responsible for training LSTM model.\
 It is best to run these 2 notebooks on Google Colab.\
+`Xgboost_Jupyter.ipynb` is for you to run the xgboost notebook on your local machine rather than Colab
 You can also view `data preprocessing.py` to see how we are pre processing the dataset.
 
 ### Webpage source code
