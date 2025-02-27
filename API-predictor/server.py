@@ -70,6 +70,7 @@ def predict():
                     'stream_https://refcontent.s3.eu-central-1.amazonaws.com/ref_content/timescapes/timescapes_1920x1080_25_5000.mp4':0
 
         }
+        # 2. Apply transfomations to load prediciton data into model
         df_features = pd.DataFrame([features_dict])
         # 2. Apply scaling
         scaled_data = scaler.transform(df_features)

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useState } from "react";
+import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
+import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [inputs, setInputs] = useState({
@@ -9,7 +9,7 @@ function App() {
     gs_rts: "",
     ds_display_type: "",
     gs_current_mA: "",
-    gs_phase_deg: "300",  // Default phase_deg set to 300
+    gs_phase_deg: "300", // Default phase_deg set to 300
     ds_vendor_model: "",
     ds_setting_ecomode: "",
   });
@@ -22,13 +22,13 @@ function App() {
       ...prevData,
       [name]: value,
     }));
-  }
+  };
 
   const handleAdjust = (field, step, direction) => {
     const currentValue = parseFloat(inputs[field]) || 0;
     let newValue = currentValue;
-    
-    if (direction === 'increment') {
+
+    if (direction === "increment") {
       newValue = currentValue + step;
     } else {
       newValue = currentValue - step;
@@ -40,16 +40,16 @@ function App() {
       return;
     }
 
-    setInputs(prev => ({
+    setInputs((prev) => ({
       ...prev,
       [field]: newValue.toString(),
     }));
     setError(null);
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     // Validation checks
     for (const [key, value] of Object.entries(inputs)) {
       if (value.trim() === "") {
@@ -73,13 +73,16 @@ function App() {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/predict', inputs);
+      const response = await axios.post(
+        "http://localhost:5001/predict",
+        inputs
+      );
       setResult(response.data);
       setError(null);
     } catch (err) {
-      setError('Failed to fetch data. Please try again.');
+      setError("Failed to fetch data. Please try again.");
     }
-  }
+  };
 
   return (
     <Container>
@@ -91,9 +94,9 @@ function App() {
               <Col>
                 <Form.Group>
                   <Form.Label>ds_display_size</Form.Label>
-                  <Form.Select 
-                    name="ds_display_size" 
-                    value={inputs.ds_display_size} 
+                  <Form.Select
+                    name="ds_display_size"
+                    value={inputs.ds_display_size}
                     onChange={handleChange}
                   >
                     <option value="">Select</option>
@@ -107,22 +110,22 @@ function App() {
                 <Form.Group>
                   <Form.Label>gs_rts</Form.Label>
                   <div className="d-flex align-items-center">
-                    <Button 
-                      variant="outline-secondary" 
-                      onClick={() => handleAdjust('gs_rts', 1000, 'decrement')}
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => handleAdjust("gs_rts", 1000, "decrement")}
                     >
                       -1000
                     </Button>
-                    <Form.Control 
-                      type="number" 
-                      name="gs_rts" 
-                      value={inputs.gs_rts} 
-                      onChange={handleChange} 
-                      className="mx-2" 
+                    <Form.Control
+                      type="number"
+                      name="gs_rts"
+                      value={inputs.gs_rts}
+                      onChange={handleChange}
+                      className="mx-2"
                     />
-                    <Button 
-                      variant="outline-secondary" 
-                      onClick={() => handleAdjust('gs_rts', 1000, 'increment')}
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() => handleAdjust("gs_rts", 1000, "increment")}
                     >
                       +1000
                     </Button>
@@ -135,9 +138,9 @@ function App() {
               <Col>
                 <Form.Group>
                   <Form.Label>ds_display_type</Form.Label>
-                  <Form.Select 
-                    name="ds_display_type" 
-                    value={inputs.ds_display_type} 
+                  <Form.Select
+                    name="ds_display_type"
+                    value={inputs.ds_display_type}
                     onChange={handleChange}
                   >
                     <option value="">Select</option>
@@ -151,22 +154,26 @@ function App() {
                 <Form.Group>
                   <Form.Label>gs_current_mA</Form.Label>
                   <div className="d-flex align-items-center">
-                    <Button 
-                      variant="outline-secondary" 
-                      onClick={() => handleAdjust('gs_current_mA', 50, 'decrement')}
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() =>
+                        handleAdjust("gs_current_mA", 50, "decrement")
+                      }
                     >
                       -50
                     </Button>
-                    <Form.Control 
-                      type="number" 
-                      name="gs_current_mA" 
-                      value={inputs.gs_current_mA} 
-                      onChange={handleChange} 
-                      className="mx-2" 
+                    <Form.Control
+                      type="number"
+                      name="gs_current_mA"
+                      value={inputs.gs_current_mA}
+                      onChange={handleChange}
+                      className="mx-2"
                     />
-                    <Button 
-                      variant="outline-secondary" 
-                      onClick={() => handleAdjust('gs_current_mA', 50, 'increment')}
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() =>
+                        handleAdjust("gs_current_mA", 50, "increment")
+                      }
                     >
                       +50
                     </Button>
@@ -180,23 +187,27 @@ function App() {
                 <Form.Group>
                   <Form.Label>gs_phase_deg</Form.Label>
                   <div className="d-flex align-items-center">
-                    <Button 
-                      variant="outline-secondary" 
-                      onClick={() => handleAdjust('gs_phase_deg', 10, 'decrement')}
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() =>
+                        handleAdjust("gs_phase_deg", 10, "decrement")
+                      }
                     >
                       -10
                     </Button>
-                    <Form.Control 
-                      type="number" 
-                      step="any" 
-                      name="gs_phase_deg" 
-                      value={inputs.gs_phase_deg} 
-                      onChange={handleChange} 
-                      className="mx-2" 
+                    <Form.Control
+                      type="number"
+                      step="any"
+                      name="gs_phase_deg"
+                      value={inputs.gs_phase_deg}
+                      onChange={handleChange}
+                      className="mx-2"
                     />
-                    <Button 
-                      variant="outline-secondary" 
-                      onClick={() => handleAdjust('gs_phase_deg', 10, 'increment')}
+                    <Button
+                      variant="outline-secondary"
+                      onClick={() =>
+                        handleAdjust("gs_phase_deg", 10, "increment")
+                      }
                     >
                       +10
                     </Button>
@@ -206,9 +217,9 @@ function App() {
               <Col>
                 <Form.Group>
                   <Form.Label>Ds_vendor_model</Form.Label>
-                  <Form.Select 
-                    name="ds_vendor_model" 
-                    value={inputs.ds_vendor_model} 
+                  <Form.Select
+                    name="ds_vendor_model"
+                    value={inputs.ds_vendor_model}
                     onChange={handleChange}
                   >
                     <option value="">Select</option>
@@ -224,9 +235,9 @@ function App() {
               <Col>
                 <Form.Group>
                   <Form.Label>ds_setting_ecomode</Form.Label>
-                  <Form.Select 
-                    name="ds_setting_ecomode" 
-                    value={inputs.ds_setting_ecomode} 
+                  <Form.Select
+                    name="ds_setting_ecomode"
+                    value={inputs.ds_setting_ecomode}
                     onChange={handleChange}
                   >
                     <option value="">Select</option>
@@ -236,7 +247,6 @@ function App() {
                 </Form.Group>
               </Col>
             </Row>
-
 
             <Button variant="primary" type="submit" className="mt-3">
               Confirm
