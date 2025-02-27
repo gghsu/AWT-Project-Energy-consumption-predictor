@@ -25,6 +25,8 @@ You will also need to install docker on your machine.
 
 ### `sudo docker build -t awt-predictor .`
 
+Dont forget the '.'
+
 Change port number '5001' to the same port in front end webpage's API call.
 
 ### `sudo docker run -d -p 5001:5000 awt-predictor`
